@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configure AWS credentials
-        uses: aws-action/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -31,7 +31,7 @@ jobs:
 
       - name: Deploy our stack
         run: |
-          stack_name="pr-test-stack-${{github.event.pull_request.number}}"
+          stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
           aws cloudformation create-stack --stack-name $stack_name --template-body file://cloudformation/s3-bucket.yaml --parameters ParameterKey=Environment,ParameterValue=test
 
       - name: Comment on the PR
